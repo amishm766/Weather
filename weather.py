@@ -24,16 +24,17 @@ from pandas.tools.plotting import scatter_matrix
 reload(sys)
 sys.setdefaultencoding('utf8')
 class serial_device():
-    
+    """ Class to define all the methods to interface with the serial device
+    """
     def __init__(self):
-        """ Initializes the class iobject """
-
+        """ Constructor which Initializes the class iobject 
+        """
         self.port = serial.Serial("/dev/ttyUSB0", baudrate = 9600, timeout = 2)
         print("serial_device object created")
 
     def write_gps(self,*commands):
-        """ Writes commands to the serial port """
-
+        """ Writes commands to the serial port 
+        """
         rcv = ""
         self.port.write(*commands)
         rcv = self.port.readline()
@@ -47,10 +48,9 @@ class extract(serial_device):
         print("Extract object created at {}".format(self.timestring))
         
     def log_file(self):
-        """ Saves the sensor datas to the file """
-
-        global gps_data,gps_output
-        
+        """ Saves the sensor datas to the file 
+        """
+        global gps_data, gps_output 
         dev.write_gps('AT+CGPSPWR=1')
         dev.write_gps('AT+CGPSRST=0')
         self.timestring = dt.datetime.now()
@@ -69,8 +69,8 @@ class extract(serial_device):
             print(gps_data.tail(3))
 
     def out_file(self):
-        """ Outputs a file which contains inmportant data """
-
+        """ Outputs a file which contains important data 
+        """
         if (gps_output[0]=='$GPRMC') & (gps_output[2] == 'A'):
             data = pd.read_csv('out.csv')
             data = data[gps_data.ix[:, 'nmea'] == '$GPRMC'].ix[:len(gps_data.nmea)-1, ['lat','lon','speed','temp','Humidity','datetime']]
@@ -89,13 +89,13 @@ class extract(serial_device):
             else:
                 pass
                 print(data.tail())
-        
             data.to_csv('out.csv',index= True)
 
 class plot_graph():
 
     def __init__(self):
-        """ This function initiatizes the plot_graph class """
+        """ This function initiatizes the plot_graph class 
+        """
         print("The object for plotting graph is created")
 
     def plot_temp_humid(self):
