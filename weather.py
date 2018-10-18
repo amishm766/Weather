@@ -1,10 +1,8 @@
 # Author: Ankit Mishra
 # Date: 09 Sep, 2018
-# Title: IOT based toll collection system
+# Title: IOT based Real time weather detection and pridiction
 
-""" This project aims at the innovation and automation which increases the transparency
-    in the toll collection system. A database of persons checkin time and balance is
-    maintained which can be accessed from the webserver if u have the access to it.
+""" 
 """
 
 
@@ -94,7 +92,7 @@ class extract(serial_device):
 class plot_graph():
 
     def __init__(self):
-        """ This function initiatizes the plot_graph class 
+        """ This method initiatizes the plot_graph class 
         """
         print("The object for plotting graph is created")
 
@@ -119,7 +117,9 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-#    except ValueError:
-#        pass
     except KeyboardInterrupt:
         pass
+    except Exception as e:
+        print(e)
+    finally:
+        
