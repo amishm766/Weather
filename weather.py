@@ -47,7 +47,7 @@ class extract(serial_device):
         print("Extract object created at {}".format(self.timestring))
         
     def log_file(self):
-        """ Saves the sensor datas to the file 
+        """ Saves the raw sensor datas to the file 
         """
         global gps_data, gps_output 
         dev.write_gps('AT+CGPSPWR=1')
@@ -68,7 +68,7 @@ class extract(serial_device):
             print(gps_data.tail(3))
 
     def out_file(self):
-        """ Outputs a file which contains important data 
+        """ Outputs a file which contains important(processed) data 
         """
         if (gps_output[0]=='$GPRMC') & (gps_output[2] == 'A'):
             data = pd.read_csv('out.csv')
